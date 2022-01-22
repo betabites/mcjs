@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const events = require("events")
 const path = require("path")
 const {spawn} = require("child_process")
@@ -58,12 +60,6 @@ class server extends events.EventEmitter {
                 this.server.stdout.on("data", data => {
                     let data_str = data.toString().slice(0, -1).replaceAll(/^\[[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9] [0-9][0-9]:[0-9][0-9]:[0-9][0-9]:[0-9][0-9][0-9] /ig, "[")
                     if (data_str !== "") {
-                        try {
-                            clearTimeout(this.result_coupler_timeout)
-                        } catch (e) {
-                        }
-
-                        this.result_coupler.push(data_str)
                         this.emit("consoleLog", data_str)
 
                         if (typeof this.sendOutAsync !== "undefined") {
@@ -112,11 +108,12 @@ class server extends events.EventEmitter {
                     this.emit("onShutdown")
                     this.server = null
                 })
-                client.user.setPresence({activities: [{name: "0 players online", type: "WATCHING"}]});
-
                 return "Server has been started"
             } catch (e) {
-                console.log("Server start failed")
+                console.log("Server start failed. If the below error is an EACCES error, then please run this command:")
+                console.log("sudo chmod u=rwx,g=r,o=r " + __dirname + "/bedrock_server/bedrock_server")
+                console.log()
+                console.error(e)
             }
         } else {
             return "Cannot start server. Server is already started."
@@ -132,7 +129,7 @@ class server extends events.EventEmitter {
         }
     }
 
-    installExtentions(extension) {
+    installExtention(extension) {
         extension.connectMc(this)
     }
 }
