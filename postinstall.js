@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 // This script runs after the install has completed, and requests the user to get the link to the latest version of the Minecraft Bedrock Dedicated server
 const readline = require('readline');
 const https = require("https");
@@ -40,6 +42,10 @@ async function unzip_loop() {
     https.get(link, (res) => {
         console.log("Unzipping server files... This may take a minute...")
         res.pipe(unzip.Extract({path: __dirname + "/bedrock_server"}))
+        res.on("end", () => {
+            console.log("Unzip finished")
+            process.exit()
+        })
     })
 }
 
