@@ -1,0 +1,31 @@
+{
+  "name": "@betabites/mcjs",
+  "version": "1.0.0",
+  "description": "A NodeJS wrapper for a Minecraft Dedicated Bedrock server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/betabites/mcjs.git"
+  },
+  "keywords": [
+    "minecraft",
+    "bedrock",
+    "discord",
+    ".mcpack"
+  ],
+  "author": "BetaBites",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/betabites/mcjs/issues"
+  },
+  "homepage": "https://github.com/betabites/mcjs#readme",
+  "dependencies": {
+    "unzipper": "^0.10.11"
+  },
+  "bin": {
+    "mcjs": "index.js"
+  }
+}
